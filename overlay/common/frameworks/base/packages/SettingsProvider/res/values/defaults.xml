@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2020 2NEOS
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Install other apps -->
+    <bool name="def_install_non_market_apps">true</bool>
+    <!-- Dont verify apps -->
+    <bool name="def_package_verifier_enable">false</bool>
+
+    <!-- Keep wifi awake -->
+    <integer name="def_wifi_sleep_policy">0</integer>
+
+    <!-- No lockscreen if keyguard comp. enabled -->
+    <bool name="def_lockscreen_disabled">true</bool>
+    <!-- No provisioning -->
+    <bool name="def_device_provisioned">true</bool>
+
+    <!-- Landscape -->
+    <integer name="def_user_rotation">3</integer>
+</resources>

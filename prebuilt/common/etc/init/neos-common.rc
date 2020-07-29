@@ -1,0 +1,33 @@
+# NEOS
+# **** comma additions ****
+
+on post-fs-data
+    mkdir /data/data/com.termux 0777 root root
+    mkdir /data/data/com.termux/files 0777 root root
+    mkdir /data/data/com.termux/files/tmp 0777 root root
+    symlink /system/comma/usr /data/data/com.termux/files/usr
+    symlink /system/comma/home /data/data/com.termux/files/home
+
+on property:sys.boot_completed=1
+    start sshd
+    start comma
+
+service sshd /system/bin/start-ssh
+    class late_start
+    user root
+    group root
+    setenv LD_LIBRARY_PATH /data/data/com.termux/files/usr/lib
+    setenv PATH /usr/local/bin:/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/sbin:/data/data/com.termux/files/usr/bin/applets:/bin:/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
+    setenv HOME /data/data/com.termux/files/home
+    oneshot
+    writepid /dev/cpuset/system-background/tasks
+    disabled
+
+service comma /data/data/com.termux/files/usr/bin/tmux new-session -s comma -d /system/etc/init/comma.sh
+   user root
+   group root
+   setenv LD_LIBRARY_PATH /data/data/com.termux/files/usr/lib
+   setenv PATH /usr/local/bin:/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/sbin:/data/data/com.termux/files/usr/bin/applets:/bin:/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
+   setenv HOME /data/data/com.termux/files/home
+   oneshot
+   disabled
