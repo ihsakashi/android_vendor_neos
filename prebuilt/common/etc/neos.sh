@@ -10,14 +10,6 @@ else
   exit 0
 fi
 
-# fix the messed up routes in android for eth0
-# TODO: investigate this
-#ip rule add prio 100 from all lookup main
-
-# TODO: redo governor and frequency management
-echo "performance" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-echo "performance" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-
 # setup CPU set for all android tasks
 mkdir /dev/cpuset/android
 echo 0 > /dev/cpuset/android/cpus
@@ -33,12 +25,8 @@ echo 0-3 > /dev/cpuset/app/cpus
 echo 0 > /dev/cpuset/app/mems
 
 echo $$ > /dev/cpuset/app/tasks
-# (our parent, tmux, also gets all the cores)
+# ************ (our parent, tmux, also gets all the cores) ************
 echo $PPID > /dev/cpuset/app/tasks
-
-#if ! iptables -t mangle -w -C PREROUTING -i wlan0 -j TTL  --ttl-set 65 > /dev/null 2>&1; then
-#    iptables -t mangle -w -A PREROUTING -i wlan0 -j TTL --ttl-set 65
-#fi
 
 rm -f /data/params/d/AthenadPid
 

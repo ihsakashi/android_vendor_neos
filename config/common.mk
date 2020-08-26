@@ -7,9 +7,9 @@ DEVICE_PACKAGE_OVERLAYS += vendor/neos/overlay/common
 $(foreach f,$(wildcard vendor/neos/prebuilt/common/etc/init/*.rc),\
 	$(eval PRODUCT_COPY_FILES += $(f):system/etc/init/$(notdir $f)))
 
-# Copy NEOS-specific files
-PRODUCT_COPY_FILES += \
-	vendor/neos/prebuilt/common/init/comma.sh:system/etc/init/comma.sh
+# Copy all NEOS-specific sh files
+$(foreach f,$(wildcard vendor/neos/prebuilt/common/etc/*.sh),\
+	$(eval PRODUCT_COPY_FILES += $(f):system/etc/$(notdir $f)))
 
 # Termux usr
 $(info $(shell python $(vendor/neos/termux_usr/install.py)))
@@ -19,8 +19,8 @@ PRODUCT_COPY_FILES += \
 	$(call find-copy-subdir-files,*,vendor/neos/prebuilt/comma/home,system/comma/home) \
 
 # Copy installer file / REDO
-PRODUCT_COPY_FILES += \
-	vendor/neos/prebuilt/comma/installer_openpilot:system/comma/installer
+#PRODUCT_COPY_FILES += \
+#	vendor/neos/prebuilt/comma/installer_openpilot:system/comma/installer
 
 # Build these - TEMP: Dummy apps
 #PRODUCT_PACKAGES += \

@@ -12,18 +12,14 @@ on property:sys.boot_completed=1
     start sshd
     start comma
 
-service sshd /system/bin/start-ssh
+service sshd /system/etc/neos-ssh.sh
     class late_start
     user root
     group root
-    setenv LD_LIBRARY_PATH /data/data/com.termux/files/usr/lib
-    setenv PATH /usr/local/bin:/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/sbin:/data/data/com.termux/files/usr/bin/applets:/bin:/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
-    setenv HOME /data/data/com.termux/files/home
     oneshot
-    writepid /dev/cpuset/system-background/tasks
     disabled
 
-service comma /data/data/com.termux/files/usr/bin/tmux new-session -s comma -d /system/etc/init/comma.sh
+service comma /data/data/com.termux/files/usr/bin/tmux new-session -s comma -d /system/etc/neos.sh
    user root
    group root
    setenv LD_LIBRARY_PATH /data/data/com.termux/files/usr/lib
