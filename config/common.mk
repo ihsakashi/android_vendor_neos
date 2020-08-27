@@ -22,8 +22,8 @@ PRODUCT_COPY_FILES += \
 	$(call find-copy-subdir-files,*,vendor/neos/prebuilt/comma/home,system/comma/home) \
 
 # Window Wrapper Lib
-#PRODUCT_PACKAGES += \
-#	libww
+PRODUCT_PACKAGES += \
+	libww
 
 # Build these
 #PRODUCT_PACKAGES += \
