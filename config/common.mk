@@ -1,5 +1,8 @@
 # NEOS Vendor
 
+# AOSPA Specific
+TARGET_DISABLES_GAPPS := true
+
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += vendor/neos/overlay/common
 
@@ -18,12 +21,11 @@ PRODUCT_COPY_FILES += \
 	$(call find-copy-subdir-files,*,vendor/neos/termux_usr/out/data/data/com.termux/files/usr,system/comma/usr) \
 	$(call find-copy-subdir-files,*,vendor/neos/prebuilt/comma/home,system/comma/home) \
 
-# Copy installer file / REDO
-#PRODUCT_COPY_FILES += \
-#	vendor/neos/prebuilt/comma/installer_openpilot:system/comma/installer
-
-# Build these - TEMP: Dummy apps
+# Window Wrapper Lib
 #PRODUCT_PACKAGES += \
-#	Termux \
-#	NEOSSetup
+#	libww
+
+# Build these
+#PRODUCT_PACKAGES += \
+#	TermuxAPI
 
