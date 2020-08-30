@@ -26,6 +26,6 @@ PRODUCT_PACKAGES += \
 	libww
 
 # Build these
-#PRODUCT_PACKAGES += \
-#	TermuxAPI
+PRODUCT_PACKAGES += \
+	TermuxAPI
 
