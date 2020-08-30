@@ -15,7 +15,7 @@ $(foreach f,$(wildcard vendor/neos/prebuilt/common/etc/*.sh),\
 	$(eval PRODUCT_COPY_FILES += $(f):system/etc/$(notdir $f)))
 
 # Termux usr
-$(info $(shell python $(vendor/neos/termux_usr/install.py)))
+#$(info $(shell python $(vendor/neos/termux_usr/install.py)))
 
 PRODUCT_COPY_FILES += \
 	$(call find-copy-subdir-files,*,vendor/neos/termux_usr/out/data/data/com.termux/files/usr,system/comma/usr) \
