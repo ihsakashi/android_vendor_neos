@@ -9,8 +9,8 @@ on post-fs-data
     symlink /system/comma/home /data/data/com.termux/files/home
 
 on property:sys.boot_completed=1
-    start sshd
     start comma
+    start sshd
 
 service sshd /system/etc/neos-ssh.sh
     class late_start
