@@ -1,0 +1,13 @@
+/.
+/data/
+/data/data/
+/data/data/com.termux/
+/data/data/com.termux/files/
+/data/data/com.termux/files/usr/
+/data/data/com.termux/files/usr/lib/
+/data/data/com.termux/files/usr/lib/libncurses.a
+/data/data/com.termux/files/usr/lib/libtic.a
+/data/data/com.termux/files/usr/lib/libtinfo.a
+/data/data/com.termux/files/usr/lib/libcurses.a
+/data/data/com.termux/files/usr/lib/libtermcap.a
+/data/data/com.termux/files/usr/lib/libncursesw.a

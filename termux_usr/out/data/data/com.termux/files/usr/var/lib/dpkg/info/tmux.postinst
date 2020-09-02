@@ -1,0 +1,2 @@
+#!/data/data/com.termux/files/usr/bin/sh
+mkdir -p /data/data/com.termux/files/usr/var/run

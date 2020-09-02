@@ -1,0 +1,14 @@
+#!/data/data/com.termux/files/usr/bin/sh
+
+if [ "$1" != "remove" ]; then
+    exit 0
+fi
+
+echo "Uninstalling python modules..."
+pip3 freeze 2>/dev/null | xargs pip3 uninstall -y >/dev/null 2>/dev/null
+rm -f /data/data/com.termux/files/usr/bin/pip /data/data/com.termux/files/usr/bin/pip3* /data/data/com.termux/files/usr/bin/easy_install /data/data/com.termux/files/usr/bin/easy_install-3*
+
+echo "Deleting remaining files from site-packages..."
+rm -Rf /data/data/com.termux/files/usr/lib/python3.8/site-packages/*
+
+exit 0

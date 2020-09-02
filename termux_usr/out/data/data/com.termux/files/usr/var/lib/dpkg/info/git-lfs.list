@@ -1,0 +1,12 @@
+/.
+/data/
+/data/data/
+/data/data/com.termux/
+/data/data/com.termux/files/
+/data/data/com.termux/files/usr/
+/data/data/com.termux/files/usr/bin/
+/data/data/com.termux/files/usr/bin/git-lfs
+/data/data/com.termux/files/usr/share/
+/data/data/com.termux/files/usr/share/doc/
+/data/data/com.termux/files/usr/share/doc/git-lfs/
+/data/data/com.termux/files/usr/share/doc/git-lfs/LICENSE.md

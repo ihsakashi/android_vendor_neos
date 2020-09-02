@@ -1,0 +1,10 @@
+prefix=/data/data/com.termux/files/usr
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libdav1d
+Description: AV1 decoding library
+Version: 0.4.0
+Libs: -L${libdir} -ldav1d
+Libs.private: -pthread
+Cflags: -I${includedir}

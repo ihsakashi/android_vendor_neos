@@ -1,0 +1,13 @@
+#!/data/data/com.termux/files/usr/bin/sh
+
+echo "Setting up pip..."
+
+# Fix historical mistake which removed bin/pip but left site-packages/pip-*.dist-info,
+# which causes ensurepip to avoid installing pip due to already existing pip install:
+if [ ! -f "/data/data/com.termux/files/usr/bin/pip" ]; then
+    rm -Rf /data/data/com.termux/files/usr/lib/python3.8/site-packages/pip-*.dist-info
+fi
+
+/data/data/com.termux/files/usr/bin/python3 -m ensurepip --upgrade --default-pip
+
+exit 0
