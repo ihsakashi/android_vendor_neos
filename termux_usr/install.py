@@ -191,6 +191,7 @@ if __name__ == "__main__":
         'libzmq',
         'libpcap',
         'libpcap-static',
+        'libpng',
         'make',
         'man',
         'nano',
@@ -206,7 +207,7 @@ if __name__ == "__main__":
         'wget',
         'xz-utils',
         'zlib-static',
-	'zsh',
+	    'zsh',
     ]
 
     pkg_deps, pkg_filenames = load_packages()
