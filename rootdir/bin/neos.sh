@@ -35,11 +35,11 @@ while true; do
     exec /data/data/com.termux/files/continue.sh
   fi
 
-  while [ ! -f /system/comma/installer ]; do
+  while [ ! -f /system/neos/installer ]; do
     echo "waiting for installer"
     sleep 1
   done
 
-  chmod +x /system/comma/installer
-  /system/comma/installer
+  chmod +x /system/neos/installer
+  /system/neos/installer
 done

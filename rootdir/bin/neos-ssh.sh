@@ -16,9 +16,9 @@ AUTHORIZED_KEYS=/data/ssh/authorized_keys
 DEFAULT_AUTHORIZED_KEYS=/system/etc/security/authorized_keys.default
 
 if [ ! -f $DSA_KEY ]; then
-    if [ -f /system/comma/ssh/ssh_host_dsa_key ]; then
-        cp -f /system/comma/ssh/ssh_host_dsa_key
-        cp -f /system/comma/ssh/ssh_host_dsa_key.pub
+    if [ -f /system/etc/ssh/ssh_host_dsa_key ]; then
+        cp -f /system/etc/ssh/ssh_host_dsa_key
+        cp -f /system/etc/ssh/ssh_host_dsa_key.pub
     else
         /system/bin/ssh-keygen -t dsa -f $DSA_KEY -N ""
     fi
@@ -27,9 +27,9 @@ if [ ! -f $DSA_KEY ]; then
 fi
 
 if [ ! -f $RSA_KEY ]; then
-    if [ -f /system/comma/ssh/ssh_host_rsa_key ]; then
-        cp -f /system/comma/ssh/ssh_host_rsa_key
-        cp -f /system/comma/ssh/ssh_host_rsa_key.pub
+    if [ -f /system/etc/ssh/ssh_host_rsa_key ]; then
+        cp -f /system/etc/ssh/ssh_host_rsa_key
+        cp -f /system/etc/ssh/ssh_host_rsa_key.pub
     else
         /system/bin/ssh-keygen -t rsa -f $RSA_KEY -N ""
     fi

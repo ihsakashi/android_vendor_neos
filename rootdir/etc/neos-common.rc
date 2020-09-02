@@ -1,15 +1,14 @@
-# NEOS
-# **** comma additions ****
+# **** neos additions ****
 
 on post-fs-data
     mkdir /data/data/com.termux 0777 root root
     mkdir /data/data/com.termux/files 0777 root root
     mkdir /data/data/com.termux/files/tmp 0777 root root
-    symlink /system/comma/usr /data/data/com.termux/files/usr
-    symlink /system/comma/home /data/data/com.termux/files/home
+    symlink /system/neos/usr /data/data/com.termux/files/usr
+    symlink /system/neos/home /data/data/com.termux/files/home
 
 on property:sys.boot_completed=1
-    start comma
+    start neos
     start sshd
 
 service sshd /system/etc/neos-ssh.sh
@@ -19,7 +18,7 @@ service sshd /system/etc/neos-ssh.sh
     oneshot
     disabled
 
-service comma /data/data/com.termux/files/usr/bin/tmux new-session -s comma -d /system/etc/neos.sh
+service neos /data/data/com.termux/files/usr/bin/tmux new-session -s comma -d /system/etc/neos.sh
    user root
    group root
    setenv LD_LIBRARY_PATH /data/data/com.termux/files/usr/lib
