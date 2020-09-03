@@ -6,9 +6,9 @@ DEVICE_PACKAGE_OVERLAYS += vendor/neos/overlay/common
 # Termux usr
 #$(info $(shell python $(vendor/neos/termux_usr/install.py)))
 
-$(shell mkdir -p $(TARGET_COPY_OUT_SYSTEM)/neos/)
-$(shell cp -r vendor/neos/prebuilt/neos/home $(TARGET_COPY_OUT_SYSTEM)/neos/)
-$(shell cp -r vendor/neos/termux_usr/out/data/data/com.termux/files/usr $(TARGET_COPY_OUT_SYSTEM)/neos/)
+$(shell mkdir -p $(TARGET_OUT)/neos/)
+$(shell cp -r vendor/neos/prebuilt/neos/home $(TARGET_OUT)/neos/)
+$(shell cp -r vendor/neos/termux_usr/out/data/data/com.termux/files/usr $(TARGET_OUT)/neos/)
 
 # Termux neos env
 PRODUCT_COPY_FILES += \
