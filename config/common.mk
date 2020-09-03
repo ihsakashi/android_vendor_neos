@@ -20,6 +20,15 @@ PRODUCT_PACKAGES += \
 	neos.sh \
 	neos-ssh.sh
 
+# ssh system
+PRODUCT_PACKAGES += \
+    scp \
+    sftp \
+    ssh \
+    sshd \
+    sshd_config \
+    ssh-keygen
+
 # Build these
 PRODUCT_PACKAGES += \
 	su \
