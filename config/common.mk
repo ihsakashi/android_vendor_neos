@@ -7,8 +7,8 @@ DEVICE_PACKAGE_OVERLAYS += vendor/neos/overlay/common
 #$(info $(shell python $(vendor/neos/termux_usr/install.py)))
 
 $(shell mkdir -p $(TARGET_COPY_OUT_SYSTEM)/neos/)
-#$(shell cp -r vendor/neos/prebuilt/neos/home $(TARGET_COPY_OUT_SYSTEM)/neos/)
-#$(shell cp -r vendor/neos/termux_usr/out/data/data/com.termux/files/usr $(TARGET_COPY_OUT_SYSTEM)/neos/)
+$(shell cp -r vendor/neos/prebuilt/neos/home $(TARGET_COPY_OUT_SYSTEM)/neos/)
+$(shell cp -r vendor/neos/termux_usr/out/data/data/com.termux/files/usr $(TARGET_COPY_OUT_SYSTEM)/neos/)
 
 # Termux neos env
 PRODUCT_COPY_FILES += \
@@ -20,11 +20,11 @@ PRODUCT_PACKAGES += \
 	neos.sh \
 	neos-ssh.sh
 
-# Window Wrapper Lib
+# Build these
 PRODUCT_PACKAGES += \
+	su \
 	libww
 
-# Build these
 PRODUCT_PACKAGES += \
 	TermuxAPI
 
