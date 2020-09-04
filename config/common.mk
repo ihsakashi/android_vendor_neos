@@ -17,8 +17,8 @@ PRODUCT_COPY_FILES += \
 # Neos rc and scripts
 PRODUCT_PACKAGES += \
 	neos-common.rc \
-	neos.sh \
-	neos-ssh.sh
+	neos-main \
+	neos-ssh
 
 # ssh system
 PRODUCT_PACKAGES += \
