@@ -8,7 +8,7 @@ DEVICE_PACKAGE_OVERLAYS += vendor/neos/overlay/common
 
 # Termux env
 PRODUCT_COPY_FILES += \
-	$(call find-copy-subdir-files,*,vendor/neos/prebuilt/neos/home,$(TARGET_COPY_OUT_SYSTEM)/neos/home)
+	$(call find-copy-subdir-files,*,vendor/neos/prebuilt/neos/home,$(TARGET_COPY_OUT_SYSTEM)/neos/home) \
 	$(call find-copy-subdir-files,*,vendor/neos/termux_usr/out/data/data/com.termux/files/usr,$(TARGET_COPY_OUT_SYSTEM)/neos/usr)
 
 # Neos rc and scripts
