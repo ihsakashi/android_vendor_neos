@@ -1,0 +1,30 @@
+#!/system/bin/sh
+
+log="/data/.neos-setup"
+
+mount -o rw,remount /system
+mount -o rw,remount /data
+
+rm -f $log
+echo "neos-setup log" >> $log
+
+(
+cd /data/data/com.termux/files
+
+if [ ! -d /data/data/com.termux/files/usr ]; then
+    tar -xvf /system/neos/termux_usr.tar.xz
+fi
+
+if [ ! -d /data/data/com.termux/files/home ]; then
+    tar -xvf /system/neos/termux_home.tar.xz
+fi
+
+if [ -f /data/data/com.termux/files/usr/command-not-found ]; then
+    setprop neos.termux_ready 1
+    ln -s /data/data/com.termux/files/usr /system/comma/usr
+    ln -s /data/data/com.termux/files/home /system/comma/home
+fi
+) 2>&1 | tee -a ./$log;
+
+mount -o ro,remount /system
+mount -o rw,remount /data

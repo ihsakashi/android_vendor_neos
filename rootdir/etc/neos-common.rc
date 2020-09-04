@@ -4,25 +4,33 @@ on post-fs-data
     mkdir /data/data/com.termux 0777 root root
     mkdir /data/data/com.termux/files 0777 root root
     mkdir /data/data/com.termux/files/tmp 0777 root root
-    symlink /system/neos/usr /data/data/com.termux/files/usr
-    symlink /system/neos/home /data/data/com.termux/files/home
-
-on property:sys.boot_completed=1
-    start neos
+    start neos-setup
     start sshd
 
-service sshd /system/bin/neos-ssh
+on property:sys.boot_completed=1
+    start neos-main
+
+service neos-setup /system/bin/neos-setup
     class late_start
     user root
     group root
     oneshot
     disabled
 
-service neos /data/data/com.termux/files/usr/bin/tmux new-session -s comma -d /system/bin/neos-main
+service sshd /system/bin/neos-ssh
+    class late_start
+    user root
+    group root
+    wait_for_prop neos.termux_ready 1
+    oneshot
+    disabled
+
+service neos-main /data/data/com.termux/files/usr/bin/tmux new-session -s comma -d /system/bin/neos-main
    user root
    group root
    setenv LD_LIBRARY_PATH /data/data/com.termux/files/usr/lib
    setenv PATH /usr/local/bin:/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/sbin:/data/data/com.termux/files/usr/bin/applets:/bin:/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
    setenv HOME /data/data/com.termux/files/home
+   wait_for_prop neos.termux_ready 1
    oneshot
    disabled
