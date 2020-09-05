@@ -15,7 +15,7 @@ $(FINAL_TAR_FILE):
 	rm -f $@
 	mkdir -p $(working)
 	cd $(working)
-	/usr/bin/bash $(PRIVATE_SCRIPT) --architecture aarch64 --add autoconf,automake,bison,clang,cmake,coreutils,curl,ffmpeg,flex,gdb,git,git-lfs,htop,jq,libcurl-static,libffi-static,libjpeg-turbo,libjpeg-turbo-static,liblz4,liblz4-static,liblzo,liblzo-static,libmpc,libtool,libuuid-static,libzmq,libpcap,libpcap-static,libpng,make,man,nano,ncurses-static,patchelf,python-static,strace,tar,tmux,vim,wget,zlib-static,zsh
+	/usr/bin/bash $(PRIVATE_SCRIPT) --architectures aarch64 --add autoconf,automake,bison,clang,cmake,coreutils,curl,ffmpeg,flex,gdb,git,git-lfs,htop,jq,libcurl-static,libffi-static,libjpeg-turbo,libjpeg-turbo-static,liblz4,liblz4-static,liblzo,liblzo-static,libmpc,libtool,libuuid-static,libzmq,libpcap,libpcap-static,libpng,make,man,nano,ncurses-static,patchelf,python-static,strace,tar,tmux,vim,wget,zlib-static,zsh
 	mv -f bootstrap--aarch64.zip $@
 
 LOCAL_PREBUILT_MODULE_FILE := $(FINAL_TAR_FILE)
