@@ -105,7 +105,7 @@ def install_package(pkg_deps, pkg_filenames, pkg):
         os.mkdir('tmp')
 
     build_usr_dir = os.getcwd()
-    tmp_dir = os.path.join(build_usr_dir, "tmp")
+    tmp_dir = tempfile.mkdtemp()
 
     if pkg in LOCAL_OVERRIDE_PKG:
         deb_name = LOCAL_OVERRIDE_PKG[pkg]
