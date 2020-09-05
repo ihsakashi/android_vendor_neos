@@ -5,7 +5,7 @@ DEVICE_PACKAGE_OVERLAYS += vendor/neos/overlay/common
 
 # Termux env
 PRODUCT_PACKAGES += \
-	termux_home
+	termux_home \
 	termux_usr
 
 # Neos rc and scripts
