@@ -3,6 +3,7 @@
 import subprocess
 import requests
 import os
+import tempfile
 import shutil
 
 BASE_URL = 'http://dl.bintray.com/termux/termux-packages-24/'
@@ -100,10 +101,11 @@ def install_package(pkg_deps, pkg_filenames, pkg):
     if not os.path.exists('out'):
         os.mkdir('out')
 
+    if not os.path.exists('tmp'):
+        os.mkdir('tmp')
+
     build_usr_dir = os.getcwd()
     tmp_dir = os.path.join(build_usr_dir, "tmp")
-    if not os.path.exists(tmp_dir):
-        os.mkdir(tmp_dir)
 
     if pkg in LOCAL_OVERRIDE_PKG:
         deb_name = LOCAL_OVERRIDE_PKG[pkg]
