@@ -3,6 +3,9 @@
 ##  Script for generating bootstrap archives.
 ##
 
+PATH=$PATH:/bin:/usr/bin
+export PATH
+
 set -e
 
 BOOTSTRAP_TMPDIR=$(mktemp -d "${TMPDIR:-/tmp}/bootstrap-tmp.XXXXXXXX")
