@@ -11,6 +11,7 @@ working:= $(local-intermediates-dir)
 FINAL_TAR_FILE := $(local-generated-sources-dir)/termux_usr.tar
 $(FINAL_TAR_FILE): PRIVATE_SCRIPT := $(LOCAL_PATH)/install.py
 $(FINAL_TAR_FILE):
+	export PYTHONPATH=/usr/local/lib/python2.7/dist-packages:$PYTHONPATH
 	rm -f $@
 	mkdir -p $(working)
 	cd $(working)
