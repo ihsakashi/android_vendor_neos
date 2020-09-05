@@ -5,11 +5,12 @@ LOCAL_MODULE := termux_usr
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := ETC
 
+MY_SCRIPT := vendor/neos/termux_usr/install.py
 
 working:= $(local-intermediates-dir)
 
 FINAL_TAR_FILE := $(local-generated-sources-dir)/termux_usr.tar
-$(FINAL_TAR_FILE): PRIVATE_SCRIPT := $(LOCAL_PATH)/install.py
+$(FINAL_TAR_FILE): PRIVATE_SCRIPT := $(MY_SCRIPT)
 $(FINAL_TAR_FILE):
 	rm -f $@
 	mkdir -p $(working)
