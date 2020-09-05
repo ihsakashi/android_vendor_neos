@@ -5,7 +5,7 @@ LOCAL_MODULE := termux_usr
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := ETC
 
-intermediates:= $(call local-generated-sources-dir)
+intermediates:= $(local-generated-sources-dir)
 
 FINAL_TAR_FILE := $(intermediates)/termux_usr.tar
 $(FINAL_TAR_FILE): PRIVATE_SCRIPT := $(LOCAL_PATH)/install.py
