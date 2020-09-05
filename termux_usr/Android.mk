@@ -9,10 +9,11 @@ LOCAL_MODULE_CLASS := ETC
 working:= $(local-intermediates-dir)
 
 FINAL_TAR_FILE := $(local-generated-sources-dir)/termux_usr.tar
+$(FINAL_TAR_FILE): PRIVATE_SCRIPT := $(LOCAL_PATH)/install.py
 $(FINAL_TAR_FILE):
 	rm -f $@
 	mkdir -p $(working)
-	cp -f $(LOCAL_PATH)/install.py $(working)
+	cp -f $(PRIVATE_SCRIPT) $(working)
 	/usr/bin/python $(working)/install.py
 	tar -cvf $@ $(working)/out/data/data/com.termux/files/usr
 
