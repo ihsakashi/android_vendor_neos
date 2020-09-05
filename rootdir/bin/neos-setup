@@ -12,11 +12,11 @@ echo "neos-setup log" >> $log
 cd /data/data/com.termux/files
 
 if [ ! -d /data/data/com.termux/files/usr ]; then
-    tar -xvf /system/neos/termux_usr.tar.xz
+    tar -xvf /system/etc/termux_usr.tar
 fi
 
 if [ ! -d /data/data/com.termux/files/home ]; then
-    tar -xvf /system/neos/termux_home.tar.xz
+    tar -xvf /system/etc/termux_home.tar
 fi
 
 if [ -f /data/data/com.termux/files/usr/command-not-found ]; then
