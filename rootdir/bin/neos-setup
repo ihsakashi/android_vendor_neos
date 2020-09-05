@@ -2,6 +2,7 @@
 
 log="/data/.neos-setup"
 
+# mount
 mount -o rw,remount /system
 mount -o rw,remount /data
 
@@ -12,19 +13,42 @@ echo "neos-setup log" >> $log
 cd /data/data/com.termux/files
 
 if [ ! -d /data/data/com.termux/files/usr ]; then
-    tar -xvf /system/etc/termux_usr.tar
-fi
+    # bootstrap
+    mkdir usr
+    unzip -d usr /system/etc/bootstrap.zip
 
-if [ ! -d /data/data/com.termux/files/home ]; then
+    cd /data/data/com.termux/files/usr
+    cat SYMLINKS.txt | while read -r line; do
+        dest=$(echo "$line" | busybox awk -F '←' '{ print $1 }')
+        link=$(echo "$line" | busybox awk -F '←' '{ print $2 }')
+        echo "Creating symlink: $link --> $dest"
+        ln -s "$dest" "$link"
+    done
+    rm -f SYMLINKS.txt
+
+    find bin lib/apt lib/bash libexec -type f -exec chmod 700 "{}" \;
+    for p in ./share/doc/util-linux/getopt/getopt-prase.bash \
+    	./share/doc/util-linux/getopt/getopt-parse.tcsh \
+	    ./var/service/ftpd/run ./var/service/telnetd/run; do
+        if [ -f "$p" ]; then
+            chmod 700 "$p"
+        fi
+    done
+
+    cd ..
+    #comma home
     tar -xvf /system/etc/termux_home.tar
 fi
 
+# prolly a better way
 if [ -f /data/data/com.termux/files/usr/command-not-found ]; then
     setprop neos.termux_ready 1
-    ln -s /data/data/com.termux/files/usr /system/comma/usr
-    ln -s /data/data/com.termux/files/home /system/comma/home
+    # for comma compatibility
+    ln -sf /data/data/com.termux/files/usr /system/comma/usr
+    ln -sf /data/data/com.termux/files/home /system/comma/home
 fi
 ) 2>&1 | tee -a ./$log;
 
+# unmount
 mount -o ro,remount /system
 mount -o rw,remount /data
