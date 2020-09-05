@@ -1,3 +1,0 @@
-#!/data/data/com.termux/files/usr/bin/sh
-
-objdump -p $@ | grep NEEDED | cut -d ' ' -f 18
