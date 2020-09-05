@@ -15,6 +15,10 @@ PRODUCT_PACKAGES += \
 	neos-main \
 	neos-ssh
 
+# ssh
+PRODUCT_COPY_FILES += \
+	$(call find-copy-subdir-files,*,vendor/neos/prebuilt/common/etc/ssh,$(TARGET_COPY_OUT_SYSTEM)/etc/ssh)
+
 # ssh system
 PRODUCT_PACKAGES += \
     scp \
@@ -22,8 +26,7 @@ PRODUCT_PACKAGES += \
     ssh \
     sshd \
     sshd_config \
-    ssh-keygen \
-	ssh_keys
+    ssh-keygen
 
 # Build these
 PRODUCT_PACKAGES += \
