@@ -2,7 +2,7 @@
 
 import subprocess
 import requests
-import osy
+import os
 import shutil
 
 BASE_URL = 'http://dl.bintray.com/termux/termux-packages-24/'
