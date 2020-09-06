@@ -9,8 +9,7 @@ FINAL_TAR_FILE := $(local-generated-sources-dir)/termux_home.tar
 $(FINAL_TAR_FILE): PRIVATE_INPUT_DIR := $(LOCAL_PATH)
 $(FINAL_TAR_FILE):
 	rm -f $@
-	cd $(PRIVATE_INPUT_DIR)
-	tar -cvf $@ ./home
+	tar -cvf $@ -C $(PRIVATE_INPUT_DIR) ./home
 
 LOCAL_PREBUILT_MODULE_FILE := $(FINAL_TAR_FILE)
 
