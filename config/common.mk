@@ -6,7 +6,7 @@ DEVICE_PACKAGE_OVERLAYS += vendor/neos/overlay/common
 # Termux env
 PRODUCT_PACKAGES += \
 	termux-bootstrap.zip \
-	termux_usr.tar
+	termux_home.tar
 
 # Neos rc and scripts
 PRODUCT_PACKAGES += \
