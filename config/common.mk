@@ -1,7 +1,7 @@
 # NEOS Vendor
 
 # Overlays
-DEVICE_PACKAGE_OVERLAYS += vendor/neos/overlay/common
+#DEVICE_PACKAGE_OVERLAYS += vendor/neos/overlay/common
 
 # Termux env
 PRODUCT_PACKAGES += \
