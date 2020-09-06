@@ -15,7 +15,7 @@ cd /data/data/com.termux/files
 if [ ! -d /data/data/com.termux/files/usr ]; then
     # bootstrap
     mkdir usr
-    unzip -d usr /system/etc/bootstrap.zip
+    unzip -d usr /system/etc/termux-bootstrap.zip
 
     cd /data/data/com.termux/files/usr
     cat SYMLINKS.txt | while read -r line; do

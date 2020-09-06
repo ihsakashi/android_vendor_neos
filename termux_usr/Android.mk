@@ -1,7 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := termux_usr
+LOCAL_MODULE := termux-bootstrap.zip
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := ETC
 
