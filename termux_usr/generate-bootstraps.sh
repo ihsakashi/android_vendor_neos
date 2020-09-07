@@ -116,7 +116,7 @@ pull_package() {
 
 	if [ ! -e "$package_tmpdir/package.deb" ]; then
 		override_toggle=false
-		for override_package in "${OVERRIDE_PACKAGES[@]}"; then
+		for override_package in "${OVERRIDE_PACKAGES[@]}"; do
 			if [ "$override_package" == "$package_name" ]; then
 				override_toggle=true
 				echo "[*] Copying override '$package_name'..."
