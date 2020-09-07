@@ -6,7 +6,7 @@
 # Termux env
 PRODUCT_PACKAGES += \
 	termux-bootstrap.zip \
-	termux_home.tar
+	termux-home.zip
 
 # Neos rc and scripts
 PRODUCT_PACKAGES += \
