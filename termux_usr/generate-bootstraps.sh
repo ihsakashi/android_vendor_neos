@@ -121,7 +121,6 @@ pull_package() {
 				override_toggle=true
 				echo "[*] Copying override '$package_name'..."
 				mv -f ./local_packages/${package_name}.deb $package_tmpdir/package.deb
-			fi
 			else
 				override_toggle=false
 			fi
