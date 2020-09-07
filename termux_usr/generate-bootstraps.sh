@@ -30,6 +30,9 @@ TERMUX_PREFIX="/data/data/com.termux/files/usr"
 # be filled with option '--add'.
 declare -a ADDITIONAL_PACKAGES
 
+# Override packages list.
+declare -a OVERRIDE_PACKAGES
+
 # Check for some important utilities that may not be available for
 # some reason.
 for cmd in ar awk curl grep gzip find sed tar xargs xz zip; do
@@ -112,8 +115,22 @@ pull_package() {
 	fi
 
 	if [ ! -e "$package_tmpdir/package.deb" ]; then
-		echo "[*] Downloading '$package_name'..."
-		curl --fail --location --output "$package_tmpdir/package.deb" "$package_url"
+		override_toggle=false
+		for override_package in "${OVERRIDE_PACKAGES[@]}"; then
+			if [ "$override_package" == "$package_name" ]; then
+				override_toggle=true
+				echo "[*] Copying override '$package_name'..."
+				mv -f ./local_packages/${package_name}.deb $package_tmpdir/package.deb
+			else
+				override_toggle=false
+			fi
+		done
+		unset override_package
+
+		if ! override_toggle; then
+			echo "[*] Downloading '$package_name'..."
+			curl --fail --location --output "$package_tmpdir/package.deb" "$package_url"
+		fi
 
 		echo "[*] Extracting '$package_name'..."
 		(cd "$package_tmpdir"
@@ -205,7 +222,12 @@ show_usage() {
 	echo "                             to include into bootstrap archive."
 	echo "                             Multiple packages should be passed as"
 	echo "                             comma-separated list."
-	echo
+	echo 
+	echo " --override PKG_OVERRIDE     Override packages. Put packages in"
+	echo "                             local_packages directory then add here."
+	echo "                             Multiple packages should be passed as"
+	echo "                             comma-separated list."
+	echo 
 	echo " --architectures ARCH_LIST   Override default list of architectures"
 	echo "                             for which bootstrap archives will be"
 	echo "                             created."
@@ -243,6 +265,19 @@ while (($# > 0)); do
 				shift 1
 			else
 				echo "[!] Option '--add' requires an argument."
+				show_usage
+				exit 1
+			fi
+			;;
+		--override)
+			if [ $# -gt 1 ] && [ -n "$2" ] && [[ $2 != -* ]]; then
+				for pkg in $(echo "$2" | tr ',' ' '); do
+					OVERRIDE_PACKAGES+=("$pkg")
+				done
+				unset pkg
+				shift 1
+			else
+				echo "[!] Option '--override' requires an argument."
 				show_usage
 				exit 1
 			fi
