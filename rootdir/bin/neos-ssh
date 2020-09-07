@@ -1,8 +1,13 @@
 #!/system/bin/sh
 
+log="/data/.neos-ssh"
+
 umask 077
 
-# DEBUG=1
+DEBUG=1
+
+rm -f $log
+echo "neos-ssh log" >> $log
 
 LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
 PATH=/usr/local/bin:/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/sbin:/data/data/com.termux/files/usr/bin/applets:/bin:/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
@@ -15,10 +20,14 @@ RSA_PUB_KEY=/data/ssh/ssh_host_rsa_key.pub
 AUTHORIZED_KEYS=/data/ssh/authorized_keys
 DEFAULT_AUTHORIZED_KEYS=/system/etc/security/authorized_keys.default
 
+(
+cd /data/ssh
+
+# comma keys or make them
 if [ ! -f $DSA_KEY ]; then
     if [ -f /system/etc/ssh/ssh_host_dsa_key ]; then
-        cp -f /system/etc/ssh/ssh_host_dsa_key
-        cp -f /system/etc/ssh/ssh_host_dsa_key.pub
+        cp -f /system/etc/ssh/ssh_host_dsa_key .
+        cp -f /system/etc/ssh/ssh_host_dsa_key.pub .
     else
         /system/bin/ssh-keygen -t dsa -f $DSA_KEY -N ""
     fi
@@ -28,8 +37,8 @@ fi
 
 if [ ! -f $RSA_KEY ]; then
     if [ -f /system/etc/ssh/ssh_host_rsa_key ]; then
-        cp -f /system/etc/ssh/ssh_host_rsa_key
-        cp -f /system/etc/ssh/ssh_host_rsa_key.pub
+        cp -f /system/etc/ssh/ssh_host_rsa_key .
+        cp -f /system/etc/ssh/ssh_host_rsa_key.pub .
     else
         /system/bin/ssh-keygen -t rsa -f $RSA_KEY -N ""
     fi
@@ -53,3 +62,4 @@ else
     # don't daemonize - otherwise we can't stop the sshd service
     /system/bin/sshd -f /system/etc/ssh/sshd_config -D
 fi
+) 2>&1 | tee -a ./$log;
