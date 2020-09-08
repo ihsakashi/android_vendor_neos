@@ -13,25 +13,16 @@ PRODUCT_PACKAGES += \
 	neos-common.rc \
 	neos-setup \
 	neos-main \
-	neos-ssh \
-	neos-sshd_config
+	neos-ssh
 
 # ssh
 PRODUCT_COPY_FILES += \
 	$(call find-copy-subdir-files,*,vendor/neos/prebuilt/common/etc/ssh,$(TARGET_COPY_OUT_SYSTEM)/etc/ssh)
 
-# ssh system
-PRODUCT_PACKAGES += \
-    scp \
-    sftp \
-    ssh \
-    sshd \
-    ssh-keygen
-
 # Build these
 PRODUCT_PACKAGES += \
 	su \
-	libww
+	libwindoww
 
 PRODUCT_PACKAGES += \
 	TermuxAPI

@@ -18,6 +18,7 @@ cd /data/data/com.termux/files
 if [ ! -d /data/data/com.termux/files/usr ]; then
     # bootstrap
     mkdir usr
+    mkdir home
     unzip -d usr /system/etc/termux-bootstrap.zip
     # comma home
     unzip -d home /system/etc/termux-home.zip
@@ -43,10 +44,13 @@ if [ ! -d /data/data/com.termux/files/usr ]; then
     done
 fi
 
+if [ ! -d /system/comma/ ]; then
+    mkdir -p /system/comma/
+fi
+
 if [ -f /data/data/com.termux/files/usr/libexec/termux/command-not-found ]; then
     setprop neos.termux_ready 1
     # for comma compatibility
-    mkdir /system/comma
     ln -sf /data/data/com.termux/files/usr /system/comma/usr
     ln -sf /data/data/com.termux/files/home /system/comma/home
 fi
