@@ -13,7 +13,8 @@ PRODUCT_PACKAGES += \
 	neos-common.rc \
 	neos-setup \
 	neos-main \
-	neos-ssh
+	neos-ssh \
+	neos-sshd_config
 
 # ssh
 PRODUCT_COPY_FILES += \
@@ -25,7 +26,6 @@ PRODUCT_PACKAGES += \
     sftp \
     ssh \
     sshd \
-    sshd_config \
     ssh-keygen
 
 # Build these
