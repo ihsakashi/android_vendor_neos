@@ -23,7 +23,9 @@ if [ ! -d /data/data/com.termux/files/usr ]; then
     # comma home
     unzip -d home /system/etc/termux-home.zip
 
-    cd /data/data/com.termux/files/usr
+    mkdir -p cache/apt/archives/partial
+
+    cd usr
     # symlinks
     cat SYMLINKS.txt | while read -r line; do
         dest=$(echo "$line" | awk -F '←' '{ print $1 }')
