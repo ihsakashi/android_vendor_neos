@@ -9,6 +9,12 @@ blockdev --setrw /dev/block/by-name/system${SLOT_SUFFIX}
 mount -o remount,rw -t auto / || mount -o remount,rw -t auto /system
 mount -o remount,rw /data
 
+# neos-ssh keys
+DSA_KEY=/data/data/com.termux/files/usr/etc/ssh/ssh_host_dsa_key
+DSA_PUB_KEY=/data/data/com.termux/files/usr/etc/ssh/ssh_host_dsa_key.pub
+RSA_KEY=/data/data/com.termux/files/usr/etc/ssh/ssh_host_rsa_key
+RSA_PUB_KEY=/data/data/com.termux/files/usr/etc/ssh/ssh_host_rsa_key.pub
+
 rm -f $log
 echo "neos-setup log" >> $log
 
@@ -44,6 +50,29 @@ if [ ! -d /data/data/com.termux/files/usr ]; then
             chmod 700 "$p"
         fi
     done
+
+    # neos-ssh keys
+    mkdir -p etc/ssh
+    cd etc/ssh
+
+    # comma keys or leave em
+    if [ ! -f $DSA_KEY ]; then
+        if [ -f /system/etc/ssh/ssh_host_dsa_key ]; then
+            cp -f /system/etc/ssh/ssh_host_dsa_key $DSA_KEY
+            cp -f /system/etc/ssh/ssh_host_dsa_key.pub $DSA_PUB_KEY
+        fi
+        chmod 600 /$DSA_KEY
+        chmod 644 $DSA_PUB_KEY
+    fi
+
+    if [ ! -f $RSA_KEY ]; then
+        if [ -f /system/etc/ssh/ssh_host_rsa_key ]; then
+            cp -f /system/etc/ssh/ssh_host_rsa_key $RSA_KEY
+            cp -f /system/etc/ssh/ssh_host_rsa_key.pub $RSA_PUB_KEY
+        fi
+        chmod 600 /$RSA_KEY
+        chmod 644 $RSA_PUB_KEY
+    fi 
 fi
 
 if [ ! -d /system/comma/ ]; then

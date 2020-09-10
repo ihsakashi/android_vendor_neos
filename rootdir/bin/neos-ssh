@@ -15,34 +15,8 @@ LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
 PATH=/usr/local/bin:/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/sbin:/data/data/com.termux/files/usr/bin/applets:/bin:/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
 HOME=/data/data/com.termux/files/home
 
-DSA_KEY=/data/data/com.termux/files/usr/etc/ssh/ssh_host_dsa_key
-DSA_PUB_KEY=/data/data/com.termux/files/usr/etc/ssh/ssh_host_dsa_key.pub
-RSA_KEY=/data/data/com.termux/files/usr/etc/ssh/ssh_host_rsa_key
-RSA_PUB_KEY=/data/data/com.termux/files/usr/etc/ssh/ssh_host_rsa_key.pub
-
 (
-mkdir -p /data/data/com.termux/files/usr/etc/ssh
-cd /data/data/com.termux/files/usr/etc/ssh
-
-# comma keys or leave em
-if [ ! -f $DSA_KEY ]; then
-    if [ -f /system/etc/ssh/ssh_host_dsa_key ]; then
-        cp -f /system/etc/ssh/ssh_host_dsa_key $DSA_KEY
-        cp -f /system/etc/ssh/ssh_host_dsa_key.pub $DSA_PUB_KEY
-    fi
-    chmod 600 /$DSA_KEY
-    chmod 644 $DSA_PUB_KEY
-fi
-
-if [ ! -f $RSA_KEY ]; then
-    if [ -f /system/etc/ssh/ssh_host_rsa_key ]; then
-        cp -f /system/etc/ssh/ssh_host_rsa_key $RSA_KEY
-        cp -f /system/etc/ssh/ssh_host_rsa_key.pub $RSA_PUB_KEY
-    fi
-    chmod 600 /$RSA_KEY
-    chmod 644 $RSA_PUB_KEY
-fi
-
+# export path
 export HOME
 export LD_LIBRARY_PATH
 export PATH
