@@ -9,18 +9,20 @@ blockdev --setrw /dev/block/by-name/system${SLOT_SUFFIX}
 mount -o remount,rw -t auto / || mount -o remount,rw -t auto /system
 mount -o remount,rw /data
 
-# neos-ssh keys
-DSA_KEY=/data/data/com.termux/files/usr/etc/ssh/ssh_host_dsa_key
-DSA_PUB_KEY=/data/data/com.termux/files/usr/etc/ssh/ssh_host_dsa_key.pub
-RSA_KEY=/data/data/com.termux/files/usr/etc/ssh/ssh_host_rsa_key
-RSA_PUB_KEY=/data/data/com.termux/files/usr/etc/ssh/ssh_host_rsa_key.pub
+RSA_KEY=/system/etc/ssh/ssh_host_rsa_key
+RSA_PUB_KEY=/system/etc/ssh/ssh_host_rsa_key.pub
 
 rm -f $log
 echo "neos-setup log" >> $log
 
 (
-cd /data/data/com.termux/files
+if [ ! -d /data/data/com.termux/files ]; then
+    mkdir /data/data/com.termux 0777 root root
+    mkdir /data/data/com.termux/files 0777 root root
+    mkdir /data/data/com.termux/files/tmp 0777 root root
+fi
 
+cd /data/data/com.termux/files
 if [ ! -d /data/data/com.termux/files/usr ]; then
     # bootstrap
     mkdir usr
@@ -50,40 +52,35 @@ if [ ! -d /data/data/com.termux/files/usr ]; then
             chmod 700 "$p"
         fi
     done
+    cd ..
+fi
 
-    # neos-ssh keys
-    mkdir -p etc/ssh
-    cd etc/ssh
+if [ ! -d /data/data/com.termux/files/home/.ssh ]; then
+    mkdir -p /data/data/com.termux/files/home/.ssh
+    cd /data/data/com.termux/files/home/
 
-    # comma keys or leave em
-    if [ ! -f $DSA_KEY ]; then
-        if [ -f /system/etc/ssh/ssh_host_dsa_key ]; then
-            cp -f /system/etc/ssh/ssh_host_dsa_key $DSA_KEY
-            cp -f /system/etc/ssh/ssh_host_dsa_key.pub $DSA_PUB_KEY
-        fi
-        chmod 600 /$DSA_KEY
-        chmod 644 $DSA_PUB_KEY
-    fi
+    touch ./.ssh/authorized_keys
+    chmod 600 .ssh/authorized_keys
+    chmod 700 .ssh
 
-    if [ ! -f $RSA_KEY ]; then
-        if [ -f /system/etc/ssh/ssh_host_rsa_key ]; then
-            cp -f /system/etc/ssh/ssh_host_rsa_key $RSA_KEY
-            cp -f /system/etc/ssh/ssh_host_rsa_key.pub $RSA_PUB_KEY
-        fi
-        chmod 600 /$RSA_KEY
-        chmod 644 $RSA_PUB_KEY
-    fi 
+    cp -f $RSA_KEY .ssh/id_rsa
+    cp -f $RSA_PUB_KEY .ssh/id_rsa.pub
+    chmod 600 .ssh/id_rsa
+    chmod 644 .ssh/id_rsa.pub
+
+    cat .ssh/id_rsa.pub >> .ssh/authorized_keys
+    chmod 600 .ssh/authorized_keys
 fi
 
 if [ ! -d /system/comma/ ]; then
     mkdir -p /system/comma/
+    ln -sf /data/data/com.termux/files/usr /system/comma/usr
+    ln -sf /data/data/com.termux/files/home /system/comma/home
 fi
 
 if [ -f /data/data/com.termux/files/usr/libexec/termux/command-not-found ]; then
     setprop neos.termux_ready 1
     # for comma compatibility
-    ln -sf /data/data/com.termux/files/usr /system/comma/usr
-    ln -sf /data/data/com.termux/files/home /system/comma/home
 fi
 ) 2>&1 | tee -a ./$log;
 

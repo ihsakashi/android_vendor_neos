@@ -23,7 +23,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	su \
 	libwindoww \
-	openpilot-framebuffer
+	libframebuffer2
 
 PRODUCT_PACKAGES += \
 	TermuxAPI

@@ -1,9 +1,9 @@
 # **** neos additions ****
 
+on boot
+    setprop neos.termux_ready 0
+
 on post-fs-data
-    mkdir /data/data/com.termux 0777 root root
-    mkdir /data/data/com.termux/files 0777 root root
-    mkdir /data/data/com.termux/files/tmp 0777 root root
     start neos-setup
     start sshd
 
