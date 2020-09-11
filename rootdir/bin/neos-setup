@@ -28,9 +28,11 @@ if [ ! -d /data/data/com.termux/files/usr ]; then
     mkdir usr
     mkdir home
     unzip -d usr /system/etc/termux-bootstrap.zip
+
     # comma home
     unzip -d home /system/etc/termux-home.zip
 
+    # apt cache
     mkdir -p cache/apt/archives/partial
 
     cd usr
@@ -52,6 +54,7 @@ if [ ! -d /data/data/com.termux/files/usr ]; then
             chmod 700 "$p"
         fi
     done
+
     cd ..
 fi
 
