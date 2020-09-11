@@ -126,7 +126,7 @@ pull_package() {
 		done
 		unset override_package
 
-		if [ ${override_toggle} && -f ./local_packages/${package_name}.deb ]; then
+		if [[ "${override_toggle}" = true && -f "./local_packages/${package_name}.deb" ]]; then
 			echo "[*] Copying override '$package_name'..."
 			cp -f ./local_packages/${package_name}.deb $package_tmpdir/package.deb
 		else
