@@ -5,6 +5,8 @@ on boot
 
 on post-fs-data
     start neos-setup
+    # after
+    wait_for_prop neos.termux_ready 1
     start sshd
 
 on property:sys.boot_completed=1
@@ -17,10 +19,8 @@ service neos-setup /system/bin/neos-setup
     disabled
 
 service sshd /system/bin/neos-ssh
-    class late_start
     user root
     group root
-    wait_for_prop neos.termux_ready 1
     oneshot
     disabled
 
@@ -30,6 +30,5 @@ service neos-main /data/data/com.termux/files/usr/bin/tmux new-session -s comma 
    setenv LD_LIBRARY_PATH /data/data/com.termux/files/usr/lib
    setenv PATH /usr/local/bin:/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/sbin:/data/data/com.termux/files/usr/bin/applets:/bin:/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
    setenv HOME /data/data/com.termux/files/home
-   wait_for_prop neos.termux_ready 1
    oneshot
    disabled
