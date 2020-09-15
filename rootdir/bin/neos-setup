@@ -9,6 +9,10 @@ blockdev --setrw /dev/block/by-name/system${SLOT_SUFFIX}
 mount -o remount,rw -t auto / || mount -o remount,rw -t auto /system
 mount -o remount,rw /data
 
+LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
+PATH=/usr/local/bin:/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/sbin:/data/data/com.termux/files/usr/bin/applets:/bin:/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
+HOME=/data/data/com.termux/files/home
+
 RSA_KEY=/system/etc/ssh/ssh_host_rsa_key
 RSA_PUB_KEY=/system/etc/ssh/ssh_host_rsa_key.pub
 
@@ -32,9 +36,6 @@ if [ ! -d /data/data/com.termux/files/usr ]; then
     # comma home
     unzip -d home /system/etc/termux-home.zip
 
-    # apt cache
-    mkdir -p cache/apt/archives/partial
-
     cd usr
     # symlinks
     cat SYMLINKS.txt | while read -r line; do
@@ -56,6 +57,16 @@ if [ ! -d /data/data/com.termux/files/usr ]; then
     done
 
     cd ..
+
+    (
+    export HOME
+    export LD_LIBRARY_PATH
+    export PATH
+
+    cd $HOME
+
+    exec ./install.sh
+    )
 fi
 
 if [ ! -d /data/data/com.termux/files/home/.ssh ]; then
@@ -75,15 +86,16 @@ if [ ! -d /data/data/com.termux/files/home/.ssh ]; then
     chmod 600 .ssh/authorized_keys
 fi
 
+# for comma compatibility
 if [ ! -d /system/comma/ ]; then
     mkdir -p /system/comma/
     ln -sf /data/data/com.termux/files/usr /system/comma/usr
     ln -sf /data/data/com.termux/files/home /system/comma/home
 fi
 
+# execute post install
 if [ -f /data/data/com.termux/files/usr/libexec/termux/command-not-found ]; then
     setprop neos.termux_ready 1
-    # for comma compatibility
 fi
 ) 2>&1 | tee -a ./$log;
 
