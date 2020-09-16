@@ -2,28 +2,22 @@
 
 ## Termux
 
-- Use official termux package mirror (Not on CM13)
-- Removed openssh, openssl, and rsync because LineageOS has it built in
-- Build all packages in phone (for now)
+- Builds Bootstrap with our dependencies and post install
+- SSH
 
 TO-DO:
 
-- Build Termux
+- Fix apt debian installed. (Termux adds "No root allowed" at build)
+- Neos main tmux session
+- Termux API Wakelocks, Launcher?
 
 ## Installer
 
-- Using static installer file
-
-TO-DO:
-
-- Stahp NEOS Setup.. 
+- WIP
 
 ## Init rc
 
-- No moar ramdisk dependency
-
-TO-DO:
-- Power management?
+- Termux started in system/etc/init now
 
 ## Overlay
 
