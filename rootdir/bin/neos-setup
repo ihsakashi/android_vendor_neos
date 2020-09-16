@@ -28,11 +28,10 @@ fi
 
 cd /data/data/com.termux/files
 if [ ! -d /data/data/com.termux/files/usr ]; then
+    mkdir -p /data/data/com.termux/cache
+    mkdir home usr
     # bootstrap
-    mkdir usr
-    mkdir home
     unzip -d usr /system/etc/termux-bootstrap.zip
-
     # comma home
     unzip -d home /system/etc/termux-home.zip
 
@@ -46,7 +45,12 @@ if [ ! -d /data/data/com.termux/files/usr ]; then
     done
     rm -f SYMLINKS.txt
 
-    # perms
+    # generic perms eh
+    find /data/data/com.termux/files -type d -exec chmod 700 "{}" \;
+    find /data/data/com.termux/files/usr -type f -executable -exec chmod 700 "{}" \;
+    find /data/data/com.termux/files/usr -type f ! -executable -exec chmod 600 "{}" \;
+
+    # bootstrap perms
     find bin lib/apt lib/bash libexec -type f -exec chmod 700 "{}" \;
     for p in ./share/doc/util-linux/getopt/getopt-prase.bash \
     	./share/doc/util-linux/getopt/getopt-parse.tcsh \
@@ -58,6 +62,7 @@ if [ ! -d /data/data/com.termux/files/usr ]; then
 
     cd ..
 
+    # execute post install
     (
     export HOME
     export LD_LIBRARY_PATH
@@ -69,6 +74,7 @@ if [ ! -d /data/data/com.termux/files/usr ]; then
     )
 fi
 
+# our ssh keys
 if [ ! -d /data/data/com.termux/files/home/.ssh ]; then
     mkdir -p /data/data/com.termux/files/home/.ssh
     cd /data/data/com.termux/files/home/
@@ -93,7 +99,18 @@ if [ ! -d /system/comma/ ]; then
     ln -sf /data/data/com.termux/files/home /system/comma/home
 fi
 
-# execute post install
+# for moar compatibility
+if [ ! -d /usr ]; then
+    mkdir -p /usr
+    ln -sf /data/data/com.termux/files/usr /usr
+fi
+
+if [ ! -d /tmp ]; then
+    mkdir -p -m 1777 /tmp
+    ln -sf /data/data/com.termux/files/tmp /tmp
+fi
+
+# ready
 if [ -f /data/data/com.termux/files/usr/libexec/termux/command-not-found ]; then
     setprop neos.termux_ready 1
 fi

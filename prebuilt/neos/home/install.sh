@@ -7,7 +7,7 @@ while true; do
 done
 
 # Apt partial cache?
-mkdir -p cache/apt/archives/partial
+mkdir -p /data/data/com.termux/files/cache/apt/archives/partial
 
 # Execute all apt postinstall scripts
 chmod +x /usr/var/lib/dpkg/info/*.postinst
@@ -20,7 +20,6 @@ pkg upgrade
 pkg install root-repo
 pkg install science-repo
 pkg install eigen # these can't be bootstrapped or not yet
-
 
 # Build stuff
 mkdir /tmp/build
@@ -35,7 +34,7 @@ tar xvf capnproto-c++-${VERSION}.tar.gz
 pushd capnproto-c++-${VERSION}
 
 CXXFLAGS="-fPIC -O2" ./configure --prefix=$PREFIX
-make -j4 install
+make -j$(nproc) install
 popd
 
 # -------- Czmq
@@ -44,7 +43,7 @@ wget --tries=inf https://github.com/zeromq/czmq/releases/download/v$VERSION/czmq
 tar xvf czmq-$VERSION.tar.gz
 pushd czmq-$VERSION
 CFLAGS="-fPIC -O2 -DCZMQ_HAVE_ANDROID=1" LDFLAGS="-llog" ./configure --prefix=$PREFIX --enable-drafts=no --with-liblz4=no
-make -j4
+make -j$(nproc)
 make install
 popd
 
