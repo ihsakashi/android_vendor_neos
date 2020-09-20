@@ -100,15 +100,7 @@ if [ ! -d /system/comma/ ]; then
 fi
 
 # for moar compatibility
-if [ ! -d /usr ]; then
-    mkdir -p /usr
-    ln -sf /data/data/com.termux/files/usr /usr
-fi
-
-if [ ! -d /tmp ]; then
-    mkdir -p -m 1777 /tmp
-    ln -sf /data/data/com.termux/files/tmp /tmp
-fi
+# in rc
 
 # ready
 if [ -f /data/data/com.termux/files/usr/libexec/termux/command-not-found ]; then
