@@ -27,12 +27,9 @@ cd /tmp/build
 
 # -------- Capnp stuff
 VERSION=0.8.0
-
 wget --tries=inf https://capnproto.org/capnproto-c++-${VERSION}.tar.gz
 tar xvf capnproto-c++-${VERSION}.tar.gz
-
 pushd capnproto-c++-${VERSION}
-
 CXXFLAGS="-fPIC -O2" ./configure --prefix=$PREFIX
 make -j$(nproc) install
 popd
@@ -40,9 +37,11 @@ popd
 # -------- Czmq
 VERSION="4.2.0"
 wget --tries=inf https://github.com/zeromq/czmq/releases/download/v$VERSION/czmq-$VERSION.tar.gz
+wget --tries=inf https://raw.githubusercontent.com/ihsakashi/termux-packages/czmq/packages/libczmq/01-support-ifaddrs.patch
 tar xvf czmq-$VERSION.tar.gz
 pushd czmq-$VERSION
-CFLAGS="-fPIC -O2 -DCZMQ_HAVE_ANDROID=1" LDFLAGS="-llog" ./configure --prefix=$PREFIX --enable-drafts=no --with-liblz4=no
+patch -p1 < ../01-support-ifaddrs.patch
+CFLAGS="-fPIC -O2 -DCZMQ_HAVE_ANDROID=1" LDFLAGS="-llog" ./configure --prefix=$PREFIX --enable-drafts=no
 make -j$(nproc)
 make install
 popd
