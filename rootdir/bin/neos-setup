@@ -92,16 +92,6 @@ if [ ! -d /data/data/com.termux/files/home/.ssh ]; then
     chmod 600 .ssh/authorized_keys
 fi
 
-# for comma compatibility
-if [ ! -d /system/comma/ ]; then
-    mkdir -p /system/comma/
-    ln -sf /data/data/com.termux/files/usr /system/comma/usr
-    ln -sf /data/data/com.termux/files/home /system/comma/home
-fi
-
-# for moar compatibility
-# in rc
-
 # ready
 if [ -f /data/data/com.termux/files/usr/libexec/termux/command-not-found ]; then
     setprop neos.termux_ready 1
