@@ -23,7 +23,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	su \
 	libwindoww \
-	libframebuffer2
+	libframebuffer2 \
+
+# Build vndk components - refer to commit for why
+PRODUC_PACKAGES += \
+	libcamera2ndk_vendor \
+	AImageReaderVendorTest
 
 PRODUCT_PACKAGES += \
 	TermuxAPI
