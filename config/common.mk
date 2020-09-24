@@ -27,8 +27,7 @@ PRODUCT_PACKAGES += \
 
 # Build vndk components - refer to commit for why
 PRODUC_PACKAGES += \
-	libcamera2ndk_vendor \
-	AImageReaderVendorTest
+	libcamera2ndk_vendor
 
 PRODUCT_PACKAGES += \
 	TermuxAPI
