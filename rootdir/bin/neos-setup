@@ -64,13 +64,9 @@ if [ ! -d /data/data/com.termux/files/usr ]; then
 
     # execute post install
     (
-    export HOME
-    export LD_LIBRARY_PATH
-    export PATH
-
     cd $HOME
 
-    exec ./install.sh
+    LD_LIBRARY_PATH=$LD_LIBRARY_PATH PATH=$PATH HOME=$HOME ./install.sh
     )
 fi
 
