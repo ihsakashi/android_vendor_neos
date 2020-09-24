@@ -1,6 +1,7 @@
 # **** neos additions ****
 
 on boot
+    setenforce 0
     setprop neos.termux_ready 0
 
 on post-fs-data
