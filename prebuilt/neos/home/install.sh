@@ -14,12 +14,18 @@ chmod +x /usr/var/lib/dpkg/info/*.postinst
 find /usr/var/lib/dpkg/info -type f  -executable -exec sh -c 'exec "$1"' _ {} \;
 chmod +x /usr/var/lib/dpkg/info/*.prerm
 
+# being cheeky - this is temp
 # Update, add repos, and moar packages
 pkg update
 pkg upgrade
-pkg install root-repo
-pkg install science-repo
-pkg install eigen # these can't be bootstrapped or not yet
+pkg install root-repo science-repo
+pkg install eigen
+
+# its-pointless - this is temp
+curl -LO https://its-pointless.github.io/setup-pointless-repo.sh
+bash setup-pointless-repo.sh
+
+pkg install numpy opencv
 
 # Build stuff
 mkdir /tmp/build
