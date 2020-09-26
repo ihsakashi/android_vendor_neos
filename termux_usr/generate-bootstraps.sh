@@ -115,23 +115,23 @@ pull_package() {
 	fi
 
 	if [ ! -e "$package_tmpdir/package.deb" ]; then
-		# Check if we want to override package
+		# Check for override
 		override_toggle=false
-		for override_package in "${OVERRIDE_PACKAGES[@]}"; do
-			if [ "$override_package" == "$package_name" ]; then
+		for override_pkg in "${OVERRIDE_PACKAGES[@]}"; do
+			if [ $override_pkg == $package_name ]; then
+				echo "OVERRIDE TOGGLED"
 				override_toggle=true
 			else
 				override_toggle=false
 			fi
 		done
-		unset override_package
 
-		if [[ "${override_toggle}" = true && -f "./local_packages/${package_name}.deb" ]]; then
-			echo "[*] Copying override '$package_name'..."
-			cp -f ./local_packages/${package_name}.deb $package_tmpdir/package.deb
-		else
+		if [ $override_toggle = false ]; then
 			echo "[*] Downloading '$package_name'..."
 			curl --fail --location --output "$package_tmpdir/package.deb" "$package_url"
+		else
+			echo "[*] Override: Copying '$package_name'..."
+			cp -f ./local_packages/$package_name.deb $package_tmpdir/package.deb
 		fi
 
 		echo "[*] Extracting '$package_name'..."
