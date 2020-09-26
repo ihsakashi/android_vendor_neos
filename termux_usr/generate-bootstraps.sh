@@ -242,6 +242,8 @@ show_usage() {
 	echo " -r, --repository URL        Specify URL for APT repository from"
 	echo "                             which packages will be downloaded."
 	echo
+	echo " --directory PATH            Specifiy PATH for working directory."
+	echo 
 	echo "Architectures: ${TERMUX_ARCHITECTURES[*]}"
 	echo "Repository URL: ${REPO_BASE_URL}"
 	echo "Prefix: ${TERMUX_PREFIX}"
@@ -317,6 +319,12 @@ while (($# > 0)); do
 				exit 1
 			fi
 			;;
+		--directory)
+			if [ $# -gt 1 ] && [ -n "$2" ] && [ $2 != -* ]]; then
+				WORKING_DIR="$2"
+				shift 1
+			else
+				echo "[!] Option '--directory' requires an argument."
 		*)
 			echo "[!] Got unknown option '$1'"
 			show_usage
@@ -325,6 +333,10 @@ while (($# > 0)); do
 	esac
 	shift 1
 done
+
+if [ -n $WORKING_DIR ]; then
+	cd $WORKING_DIR
+fi
 
 for package_arch in "${TERMUX_ARCHITECTURES[@]}"; do
 	BOOTSTRAP_ROOTFS="$BOOTSTRAP_TMPDIR/rootfs-${package_arch}"
