@@ -9,9 +9,9 @@ blockdev --setrw /dev/block/by-name/system${SLOT_SUFFIX}
 mount -o remount,rw -t auto / || mount -o remount,rw -t auto /system
 mount -o remount,rw /data
 
-LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
-PATH=/usr/local/bin:/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/sbin:/data/data/com.termux/files/usr/bin/applets:/bin:/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
-HOME=/data/data/com.termux/files/home
+ALD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
+APATH=/usr/local/bin:/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/sbin:/data/data/com.termux/files/usr/bin/applets:/bin:/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
+AHOME=/data/data/com.termux/files/home
 
 RSA_KEY=/system/etc/ssh/ssh_host_rsa_key
 RSA_PUB_KEY=/system/etc/ssh/ssh_host_rsa_key.pub
@@ -47,8 +47,8 @@ if [ ! -d /data/data/com.termux/files/usr ]; then
 
     # generic perms eh
     find /data/data/com.termux/files -type d -exec chmod 700 "{}" \;
-    find /data/data/com.termux/files/usr -type f -executable -exec chmod 700 "{}" \;
-    find /data/data/com.termux/files/usr -type f ! -executable -exec chmod 600 "{}" \;
+    find /data/data/com.termux/files/usr -type f -perm /111 -exec chmod 700 "{}" \;
+    find /data/data/com.termux/files/usr -type f ! -perm /111 -exec chmod 600 "{}" \;
 
     # bootstrap perms
     find bin lib/apt lib/bash libexec -type f -exec chmod 700 "{}" \;
@@ -64,14 +64,14 @@ if [ ! -d /data/data/com.termux/files/usr ]; then
 
     # execute post install
     (
-    cd $HOME
+    cd $AHOME
 
-    LD_LIBRARY_PATH=$LD_LIBRARY_PATH PATH=$PATH HOME=$HOME ./install.sh
+    LD_LIBRARY_PATH=$ALD_LIBRARY_PATH PATH=$APATH HOME=$AHOME ./install.sh
     )
 fi
 
 # our ssh keys
-if [ ! -d /data/data/com.termux/files/home/.ssh ]; then
+if [ ! -f /data/data/com.termux/files/home/.ssh/id_rsa ]; then
     mkdir -p /data/data/com.termux/files/home/.ssh
     cd /data/data/com.termux/files/home/
 
