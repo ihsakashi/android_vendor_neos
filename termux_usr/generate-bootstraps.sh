@@ -320,7 +320,7 @@ while (($# > 0)); do
 			fi
 			;;
 		--directory)
-			if [ $# -gt 1 ] && [ -n "$2" ] && [ $2 != -* ]]; then
+			if [ $# -gt 1 ] && [ -n "$2" ] && [[ $2 != -* ]]; then
 				WORKING_DIR="$2"
 				shift 1
 			else
