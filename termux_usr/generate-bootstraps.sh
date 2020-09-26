@@ -325,6 +325,8 @@ while (($# > 0)); do
 				shift 1
 			else
 				echo "[!] Option '--directory' requires an argument."
+				show_usage
+				exit 1
 			fi
 			;;
 		*)
