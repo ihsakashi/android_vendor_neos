@@ -18,6 +18,7 @@ $(FINAL_TAR_FILE):
 	rm -f $@
 	mkdir -p $(working)
 	cp -rf $(PRIVATE_LOCAL_PACKAGES) $(working)/local_packages
+	ls $(working)/local_packages/
 	cd $(working)
 	/usr/bin/bash $(PRIVATE_SCRIPT) --architectures aarch64 --override apt --add autoconf,automake,bc,bison,capnproto,clang,cmake,coreutils,curl,ffmpeg,flex,gdb,git,git-lfs,htop,jq,libcurl-static,libczmq,libffi-static,libjpeg-turbo,libjpeg-turbo-static,liblz4,liblz4-static,liblzo,liblzo-static,libmpc,libtool,libusb,libuuid-static,libzmq,libpcap,libpcap-static,libpng,make,man,nano,ncurses-static,,ndk-sysroot,openssh,openssl,patchelf,perl,pkg-config,python,python-static,rsync,strace,tar,termux-api,tmux,tsu,vim,wget,zlib-static,zsh
 	mv -f bootstrap-aarch64.zip $@

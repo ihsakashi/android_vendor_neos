@@ -119,7 +119,6 @@ pull_package() {
 		override_toggle=false
 		for override_pkg in "${OVERRIDE_PACKAGES[@]}"; do
 			if [ $override_pkg == $package_name ]; then
-				echo "OVERRIDE TOGGLED"
 				override_toggle=true
 			else
 				override_toggle=false
