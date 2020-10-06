@@ -6,15 +6,11 @@ on boot
 
 on post-fs-data
     start neos-setup
-    # after prop
-    wait_for_prop neos.termux_ready 1
-    # ramdisk not persistent
     symlink /data/data/com.termux/files/usr /usr
     symlink /data/data/com.termux/files/tmp /tmp
-    # execute
-    start sshd
 
-on property:sys.boot_completed=1
+on post-fs-data && property:neos.termux_ready=1
+    start sshd
 
 service neos-setup /system/bin/neos-setup
     class late_start
